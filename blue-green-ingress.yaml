@@ -8,7 +8,8 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: blue-green-testing.com
+###### bluegreen.live.com will be a enduser facing web URL #######
+  - host: bluegreen.live.com
     http:
       paths:
       - path: /
@@ -16,5 +17,16 @@ spec:
         backend:
           service:
             name: active-svc
+            port:
+              number: 80
+###### bluegreen.staging.com will be internal testing web URL (Like for new app version fucntionality for QA testers) ###### 
+  - host: bluegreen.staging.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: preview-svc
             port:
               number: 80
